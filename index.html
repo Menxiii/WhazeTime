@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhazeTime - Магазин</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        /* Анимированный градиентный фон */
+        .background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200vw;
+            height: 200vh;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(200, 200, 200, 0.3) 0%, rgba(100, 100, 100, 0.6) 40%, rgba(50, 50, 80, 0.9) 70%, black 100%);
+            animation: animateBg 8s infinite alternate ease-in-out;
+            filter: blur(100px);
+        }
+
+        @keyframes animateBg {
+            0% { background-size: 250%; }
+            100% { background-size: 400%; }
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .menu-btn {
+            font-size: 2rem;
+            background: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 101;
+        }
+
+        .menu-btn:hover {
+            color: #aaa;
+        }
+
+        /* Боковое меню */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 20px;
+            transition: 0.3s ease-in-out;
+            z-index: 100;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-top: 50px;
+            text-align: center;
+        }
+
+        .sidebar ul li {
+            margin: 30px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: block;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #bbb;
+        }
+
+        /* Блок с товаром */
+        .product {
+            margin-top: 120px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #aaa;
+            font-weight: 900;
+            text-shadow: 0px 0px 10px rgba(200, 200, 200, 0.5);
+        }
+
+        .price {
+            font-size: 1.4rem;
+            margin: 10px;
+            opacity: 0.7;
+        }
+
+        .price span {
+            font-weight: 600;
+        }
+
+        .options button {
+            margin: 15px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            background: #666;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            box-shadow: 0px 0px 10px rgba(150, 150, 150, 0.5);
+        }
+
+        .options button:hover {
+            background: #444;
+        }
+
+        .final-price {
+            margin-top: 20px;
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="background"></div>
+    
+    <header>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- Боковое меню -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Товары</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <main>
+        <section class="product">
+            <h1>Барон</h1>
+            <p class="price">от <span>15₽</span></p>
+            <div class="options">
+                <button onclick="updatePrice(30)">30 дней</button>
+                <button onclick="updatePrice(90)">90 дней</button>
+                <button onclick="updatePrice('navsegda')">Навсегда</button>
+            </div>
+            <p class="final-price">Цена: 15₽</p>
+        </section>
+    </main>
+
+    <script>
+        // Функция для открытия/закрытия меню
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Функция изменения цены
+        function updatePrice(days) {
+            let basePrice = 15;
+            let price = days === 'navsegda' ? basePrice * 4 : basePrice * 2;
+            document.querySelector('.final-price').innerText = "Цена: " + price + "₽";
+        }
+    </script>
+</body>
+</html>
